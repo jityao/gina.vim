@@ -362,6 +362,7 @@ function! s:get_commitmsg_template(git, args) abort
     " Build a new commit message template
     call args.pop('--no-edit')
     call args.set('-e|--edit', 1)
+    call args.set('--no-verify', 1)
     let result = gina#process#call(a:git, args)
     if !result.status
       " While git is executed with '-c core.editor=false', the command above
@@ -400,6 +401,7 @@ function! s:get_commitmsg_cleanedup(git, args, content) abort
     call args.set('--cleanup', s:get_cleanup(a:git, args))
     call args.set('-F|--file', tempfile)
     call args.set('--no-edit', 1)
+    call args.set('--no-verify', 1)
     call args.set('--allow-empty', 1)
     call args.set('--allow-empty-message', 1)
     call args.pop('-C|--reuse-message')
